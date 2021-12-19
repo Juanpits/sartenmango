@@ -56,4 +56,16 @@ public class CookwareController {
     public boolean delete(@PathVariable("reference") String reference) {
         return accessoryService.delete(reference);
     }
+    
+    //Reto 5
+    @GetMapping("/price/{price}")
+    public List<Cookware> productByPrice(@PathVariable("price") double precio) {
+        return accessoryService.productByPrice(precio);
+    }
+    
+    //Reto 5
+    @GetMapping("/description/{description}")
+    public List<Cookware> findByDescriptionLike(@PathVariable("description") String description) {
+        return accessoryService.findByDescriptionLike(description);
+    }
 }

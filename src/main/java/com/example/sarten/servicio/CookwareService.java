@@ -85,4 +85,14 @@ public class CookwareService {
         }).orElse(false);
         return aBoolean;
     }
+    
+    //Reto 5
+    public List<Cookware> productByPrice(double price) {
+        return cookwareRepository.productByPrice(price);
+    }
+
+    //Reto 5
+    public List<Cookware> findByDescriptionLike(String description) {
+        return cookwareRepository.findByDescriptionLike(description);
+    }
 }

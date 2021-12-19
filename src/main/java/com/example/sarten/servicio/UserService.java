@@ -13,19 +13,32 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
-
+/**
+ * 
+ */
     @Autowired
     private UserRepositorio userRepository;
-
+/**
+ * 
+ * @return 
+ */
     public List<User> getAll() {
         return userRepository.getAll();
     }
-
+/**
+ * 
+ * @param id
+ * @return 
+ */
     public Optional<User> getUser(int id) {
 
         return userRepository.getUser(id);
     }
-
+/**
+ * 
+ * @param user
+ * @return 
+ */
     public User create(User user) {
         //obtiene el maximo id existente en la coleccion
         Optional<User> userIdMaximo = userRepository.lastUserId();
@@ -40,7 +53,9 @@ public class UserService {
                 user.setId(userIdMaximo.get().getId() + 1);
             }
         }
-
+/**
+ * 
+ */
         Optional<User> e = userRepository.getUser(user.getId());
         if (e.isEmpty()) {
             if (emailExists(user.getEmail()) == false) {
@@ -52,7 +67,11 @@ public class UserService {
             return user;
         }
     }
-
+/**
+ * 
+ * @param user
+ * @return 
+ */
     public User update(User user) {
 
         if (user.getId() != null) {
@@ -89,7 +108,11 @@ public class UserService {
             return user;
         }
     }
-
+/**
+ * 
+ * @param userId
+ * @return 
+ */
     public boolean delete(int userId) {
         Boolean aBoolean = getUser(userId).map(user -> {
             userRepository.delete(user);
@@ -97,11 +120,20 @@ public class UserService {
         }).orElse(false);
         return aBoolean;
     }
-
+/**
+ * 
+ * @param email
+ * @return 
+ */
     public boolean emailExists(String email) {
         return userRepository.emailExists(email);
     }
-
+/**
+ * 
+ * @param email
+ * @param password
+ * @return 
+ */
     public User authenticateUser(String email, String password) {
         Optional<User> usuario = userRepository.authenticateUser(email, password);
 
@@ -110,5 +142,10 @@ public class UserService {
         } else {
             return usuario.get();
         }
+    }
+    
+    //Reto 5
+    public List<User> birthtDayList(String monthBirthtDay) {
+        return userRepository.birthtDayList(monthBirthtDay);
     }
 }
